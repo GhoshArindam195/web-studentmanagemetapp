@@ -149,24 +149,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% for(User person : users){ %>
+                                    <% for (User person : users) {%>
                                     <tr>
-                                        <th scope="row"><%= person.getUser_id() %></th>
-                                        <td><%= person.getUser_name() %></td>
-                                        <td><%= person.getUser_type()%></td>
+                                        <th scope="row"><%= person.getUser_id()%></th>
+                                        <td><%= person.getUser_name()%></td>
+                                        <td id="currentPost<%= person.getUser_id() %>"><%= person.getUser_type()%></td>
                                         <td>
                                             <%
-                                                if(person.getUser_type().equals("Employee")){
+                                                if (person.getUser_type().equals("Employee")) {
                                             %>
-                                            <button class="btn btn-success">Promote to Manager</button>
+                                            <button id="promote<%= person.getUser_id()%>" class="btn btn-success" value="<%= person.getUser_id()%>" onclick="promote(<%= person.getUser_id()%>)">Promote to Manager</button>
+                                            <button id="demote<%= person.getUser_id()%>" class="btn btn-danger" value="<%= person.getUser_id()%>" onclick="demote(<%= person.getUser_id()%>)" hidden>Demote to Employee</button>
                                             <%
-                                                }else{
+                                            } else {
                                             %>
-                                            <button class="btn btn-danger">Demote to Employee</button>
+                                            <button id="promote<%= person.getUser_id()%>" class="btn btn-success" value="<%= person.getUser_id()%>" onclick="promote(<%= person.getUser_id()%>)" hidden>Promote to Manager</button>
+                                            <button id="demote<%= person.getUser_id()%>" class="btn btn-danger" value="<%= person.getUser_id()%>" onclick="demote(<%= person.getUser_id()%>)">Demote to Employee</button>
                                             <% } %>
                                         </td>
                                     </tr>
-                                    <% } %>
+                                    <% }%>
                                 </tbody>
                             </table>
                         </div>
@@ -177,16 +179,105 @@
                 </div>
             </div>
             <!--Access Modal End-->
-
         </div>
-
-
-
 
         <!--Sweet Alert JS-->
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
         <!--<Bootstrap JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+
+        <script>
+
+                                                //Promote Function
+                                                function promote(userid) {
+//                                                    alert("The Promote was clicked.");
+//                                                    alert(userid);
+                                                    const d = {"user_id": userid};
+                                                    $.ajax({
+                                                        url: "promoterServlet",
+                                                        data: d,
+                                                        success: function (data, textStatus, jqXHR) {
+//                                                            alert(data)
+                                                            if (data.trim() == "success")
+                                                            {
+
+                                                                swal({
+                                                                    title: "Hurray",
+                                                                    text: "Promoted to Manager",
+                                                                    icon: "success",
+                                                                    button: "Close",
+                                                                });
+
+
+                                                                
+                                                                $('#demote' + userid).removeAttr('hidden');
+                                                                $('#promote' + userid).attr('hidden', 'true');
+                                                                $('#currentPost' + userid).text("Manager")
+                                                            } else
+                                                            {
+                                                                swal({
+                                                                    title: "Failed",
+                                                                    text: "Something Went wrong!! Plase try again later.",
+                                                                    icon: "error",
+                                                                    button: "Close",
+                                                                });
+                                                            }
+                                                        },
+                                                        error: function (jqXHR, textStatus, errorThrown) {
+                                                            console.log(data);
+                                                        }
+                                                    })
+
+
+
+                                                }
+                                                
+                                                
+                                                
+                                                //Demote..
+                                                function demote(userid) {
+                                                    const d = {"user_id": userid};
+                                                    $.ajax({
+                                                        url: "demoterServlet",
+                                                        data: d,
+                                                        success: function (data, textStatus, jqXHR) {
+//                                                            alert(data)
+                                                            if (data.trim() == "success")
+                                                            {
+
+                                                                swal({
+                                                                    title: "Oh! No",
+                                                                    text: "Demoted to Employee",
+                                                                    icon: "success",
+                                                                    button: "Close",
+                                                                });
+
+
+                                                                
+                                                                $('#promote' + userid).removeAttr('hidden');
+                                                                $('#demote' + userid).attr('hidden', 'true');
+                                                                $('#currentPost' + userid).text("Employee")
+                                                            } else
+                                                            {
+                                                                swal({
+                                                                    title: "Failed",
+                                                                    text: "Something Went wrong!! Plase try again later.",
+                                                                    icon: "error",
+                                                                    button: "Close",
+                                                                });
+                                                            }
+                                                        },
+                                                        error: function (jqXHR, textStatus, errorThrown) {
+                                                            console.log(data);
+                                                        }
+                                                    })
+
+
+
+                                                }
+                                                
+        </script>
     </body>
 </html>

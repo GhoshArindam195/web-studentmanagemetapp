@@ -98,4 +98,47 @@ public class UserDao {
         }
         return users;
     }
+    
+    
+    public static boolean promoteToManager(int userID)
+    {
+        boolean f = false;
+        try {
+            Connection con = CP.getCon();
+            String query = "UPDATE users SET USER_TYPE='Manager' WHERE USER_ID=? ";
+
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, userID);
+
+            pstmt.executeUpdate();
+
+            f = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return f;
+    }
+    
+    public static boolean demoteToEmployee(int userID)
+    {
+        boolean f = false;
+        try {
+            Connection con = CP.getCon();
+            String query = "UPDATE users SET USER_TYPE='Employee' WHERE USER_ID=? ";
+
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, userID);
+
+            pstmt.executeUpdate();
+
+            f = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return f;
+    }
+    
+    
 }
