@@ -9,24 +9,38 @@ public class User{
     private String user_email;
     private String user_pwd;
     private String user_type;
+    private boolean is_verified;
+    
 
-    public User(int user_id, String user_name, String user_email, String user_pwd, String user_type) {
+    public User(int user_id, String user_name, String user_email, String user_pwd, String user_type, boolean is_verified) {
         this.user_id = user_id;
         this.user_name = user_name;
         this.user_email = user_email;
         this.user_pwd = user_pwd;
         this.user_type = user_type;
+        this.is_verified = is_verified;
     }
 
-    public User(String user_name, String user_email, String user_pwd, String user_type) {
+    public User(String user_name, String user_email, String user_pwd, String user_type, boolean is_verified) {
         this.user_name = user_name;
         this.user_email = user_email;
         this.user_pwd = user_pwd;
         this.user_type = user_type;
+        this.is_verified = is_verified;
     }
 
     public User() {
     }
+
+    public boolean getIs_verified() {
+        return is_verified;
+    }
+
+    public void setIs_verified(boolean is_verified) {
+        this.is_verified = is_verified;
+    }
+    
+    
 
     public int getUser_id() {
         return user_id;
