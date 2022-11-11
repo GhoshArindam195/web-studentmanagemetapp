@@ -18,20 +18,33 @@
         <!--Navbar-->
         <%@include file="normal_nav.jsp" %>
         <!--Navbar ending-->
-
-
         <section class="" style="background-color: #eee;">
+            <%
+                try {
+
+                    if (session.getAttribute("msg") != null) {
+                        String msg = session.getAttribute("msg").toString();
+                        session.removeAttribute("msg");
+            %>
+            <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                <strong><%= msg %></strong> Please Try Again!!
+            </div>
+            <%}
+                } catch (Exception e) {
+                }
+            %>
             <div class="container h-100 py-4">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-lg-12 col-xl-11">
                         <div class="card text-black" style="border-radius: 25px;">
                             <div class="card-body p-md-5">
+
                                 <div class="row justify-content-center">
                                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
                                         <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-                                        <form class="mx-1 mx-md-4" action="registerServlet" method="post" onsubmit="event.preventDefault(); validate()">
+                                        <form id="reg-form" action="registerServlet" class="mx-1 mx-md-4" method="post" >
 
                                             <div class="d-flex flex-row align-items-center mb-4">
                                                 <i class="fa fa-user fa-lg me-3 fa-fw"></i>
@@ -60,7 +73,7 @@
                                             <div class="d-flex flex-row align-items-center mb-4">
                                                 <i class="fa fa-key fa-lg me-3 fa-fw"></i>
                                                 <div class="form-outline flex-fill mb-0">
-                                                    <input type="password" id="repeat_user_pwd" class="form-control" />
+                                                    <input type="password" id="repeat_user_pwd" name="repeat_user_pwd" class="form-control" />
                                                     <label id="repeat_user_pwd_lebel" class="form-label" for="repeat_user_pwd">Repeat your password</label>
                                                 </div>
                                             </div>
@@ -82,7 +95,7 @@
                                             </div>
 
                                             <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                                <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                                                <button type="submit" id="submit-btn" class="btn btn-primary btn-lg">Register</button>
                                             </div>
 
                                         </form>
@@ -102,40 +115,4 @@
             </div>
         </section>
     </body>
-
-
-    <script>
-        function validate()
-        {
-//            alert("inside validate function")
-
-            var retVal=true;
-
-            var name = document.getElementById("user_name").value;
-            if(name.includes('0') || name.includes('1') || name.includes('2') || name.includes('3')|| name.includes('4')|| name.includes('5')|| name.includes('6')|| name.includes('7')|| name.includes('8')|| name.includes('9'))
-            {
-                consol.log("Inside name validation!!")
-                retVal=false;
-//                $("#user_name_lebel").text("User name can't contain any digits!!")
-            }
-            
-            
-            var email = document.getElementById("user_email").value;
-            var pwd = document.getElementById("user_pwd").value;
-            var r_pwd = document.getElementById("repeat_user_pwd").value;
-
-
-
-//            alert(name)
-//            alert(email)
-//            alert(pwd)
-//            alert(r_pwd)
-
-
-
-            return true;
-        }
-    </script>
-
-
 </html>
