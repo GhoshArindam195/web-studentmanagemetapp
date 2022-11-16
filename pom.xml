@@ -28,14 +28,14 @@
             <version>8.0.30</version>
         </dependency>
         
-        <!--                 https://mvnrepository.com/artifact/javax.mail/mail 
+        <!--https://mvnrepository.com/artifact/javax.mail/mail--> 
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>1.4</version>
-        </dependency>-->
+        </dependency>
         
-<!--        https://mvnrepository.com/artifact/javax.activation/activation 
+        <!--        https://mvnrepository.com/artifact/javax.activation/activation 
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>

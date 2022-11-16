@@ -1,5 +1,7 @@
 package com.web_employeemanagementsystem.helper;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 public class Helper {
@@ -23,26 +25,29 @@ public class Helper {
         }
         return password;
     }
-    
-    public static String get_Random_OTP(int len)
-    {
-  
+
+    public static String get_Random_OTP(int len) {
+
         // Using numeric values
         String numbers = "0123456789";
-  
+
         // Using random method
         Random rndm_method = new Random();
-  
+
         String otp = "";
-  
-        for (int i = 0; i < len; i++)
-        {
+
+        for (int i = 0; i < len; i++) {
             // Use of charAt() method : to get character value
             // Use of nextInt() as it is scanning the value as int
             otp += numbers.charAt(rndm_method.nextInt(numbers.length()));
         }
         return otp;
     }
-    
-    
+
+    public static String getCurrentDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        return formatter.format(date).toString();
+    }
+
 }

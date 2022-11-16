@@ -1,6 +1,8 @@
 com\web_employeemanagementsystem\dao\EmployeeDao.class
+com\web_employeemanagementsystem\email\EmailUtility$1.class
 com\web_employeemanagementsystem\servlet\LoginServlet.class
 com\web_employeemanagementsystem\servlet\RegisterServlet.class
+com\web_employeemanagementsystem\email\GoogleTest.class
 com\web_employeemanagementsystem\entities\Employee.class
 com\web_employeemanagementsystem\servlet\PromoterServlet.class
 com\web_employeemanagementsystem\servlet\AddEmployeeServlet.class
@@ -9,6 +11,8 @@ com\web_employeemanagementsystem\helper\ValidateForm.class
 com\web_employeemanagementsystem\helper\CP.class
 com\web_employeemanagementsystem\servlet\logoutServlet.class
 com\web_employeemanagementsystem\servlet\UpdateEmployeeServlet.class
+com\web_employeemanagementsystem\email\EmailUtility.class
+com\web_employeemanagementsystem\email\GoogleTest$1.class
 com\web_employeemanagementsystem\dao\UserDao.class
 com\web_employeemanagementsystem\servlet\DemoterServlet.class
 com\web_employeemanagementsystem\helper\Helper.class

@@ -15,7 +15,7 @@ public class UserDao {
         boolean f = false;
         try {
             Connection con = CP.getCon();
-            String query = "INSERT INTO users(user_name, user_email, user_pwd, user_type, is_verified) values(?,?,?,?,?)";
+            String query = "INSERT INTO users(user_name, user_email, user_pwd, user_type, is_verified, reg_date) values(?,?,?,?,?,?)";
 
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, user.getUser_name());
@@ -23,6 +23,8 @@ public class UserDao {
             pstmt.setString(3, user.getUser_pwd());
             pstmt.setString(4, user.getUser_type());
             pstmt.setBoolean(5, user.getIs_verified());
+            pstmt.setString(6, user.getReg_date());
+            
 
             pstmt.executeUpdate();
 
@@ -48,7 +50,7 @@ public class UserDao {
             ResultSet set = pstmt.executeQuery();
             
             while (set.next()) {
-                user = new User(set.getInt(1), set.getString(2), set.getString(3), set.getString(4), set.getString(5), set.getBoolean(6));
+                user = new User(set.getInt(1), set.getString(2), set.getString(3), set.getString(4), set.getString(5), set.getBoolean(6), set.getDate(7).toString());
             }
 
         } catch (Exception e) {
@@ -69,7 +71,7 @@ public class UserDao {
             ResultSet set = stmt.executeQuery(query);
             User user = null;
             while (set.next()) {
-                user = new User(set.getInt(1), set.getString(2), set.getString(3), set.getString(4), set.getString(5), set.getBoolean(6));
+                user = new User(set.getInt(1), set.getString(2), set.getString(3), set.getString(4), set.getString(5), set.getBoolean(6), set.getDate(7).toString());
                 users.add(user);
             }
 
@@ -90,7 +92,7 @@ public class UserDao {
             ResultSet set = stmt.executeQuery(query);
             User user = null;
             while (set.next()) {
-                user = new User(set.getInt(1), set.getString(2), set.getString(3), set.getString(4), set.getString(5), set.getBoolean(6));
+                user = new User(set.getInt(1), set.getString(2), set.getString(3), set.getString(4), set.getString(5), set.getBoolean(6), set.getDate(7).toString());
                 users.add(user);
             }
 
