@@ -90,6 +90,7 @@ public class RegisterServlet extends HttpServlet {
                 finally
                 {
                     httpSession.setAttribute("msg", resultMessage+"_bg-danger");
+                    httpSession.setAttribute("otp", content);
                 }
                 //Email code end..................
                 response.sendRedirect("login.jsp");

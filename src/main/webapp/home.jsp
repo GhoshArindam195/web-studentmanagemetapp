@@ -12,6 +12,13 @@
     if (user == null) {
         response.sendRedirect("login.jsp");
     }
+    
+    if(!user.isIs_verified())
+    {
+        response.sendRedirect("emailVerification.jsp");
+    }
+
+
 %>
 
 
