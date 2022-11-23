@@ -24,7 +24,6 @@ public class UserDao {
             pstmt.setString(4, user.getUser_type());
             pstmt.setBoolean(5, user.getIs_verified());
             pstmt.setString(6, user.getReg_date());
-            
 
             pstmt.executeUpdate();
 
@@ -45,10 +44,9 @@ public class UserDao {
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, email);
             pstmt.setString(2, pwd);
-          
 
             ResultSet set = pstmt.executeQuery();
-            
+
             while (set.next()) {
                 user = new User(set.getInt(1), set.getString(2), set.getString(3), set.getString(4), set.getString(5), set.getBoolean(6), set.getDate(7).toString());
             }
@@ -58,10 +56,8 @@ public class UserDao {
         }
         return user;
     }
-    
-    
-    public static List<User> getUsers()
-    {
+
+    public static List<User> getUsers() {
         List<User> users = new ArrayList<>();
         try {
 
@@ -80,9 +76,8 @@ public class UserDao {
         }
         return users;
     }
-    
-    public static List<User> getUsersExcludeAdmin()
-    {
+
+    public static List<User> getUsersExcludeAdmin() {
         List<User> users = new ArrayList<>();
         try {
 
@@ -101,10 +96,8 @@ public class UserDao {
         }
         return users;
     }
-    
-    
-    public static boolean promoteToManager(int userID)
-    {
+
+    public static boolean promoteToManager(int userID) {
         boolean f = false;
         try {
             Connection con = CP.getCon();
@@ -122,9 +115,8 @@ public class UserDao {
         }
         return f;
     }
-    
-    public static boolean demoteToEmployee(int userID)
-    {
+
+    public static boolean demoteToEmployee(int userID) {
         boolean f = false;
         try {
             Connection con = CP.getCon();
@@ -142,6 +134,22 @@ public class UserDao {
         }
         return f;
     }
-    
-    
+
+    public static boolean makeVaifiedEmail(int user_id) {
+        boolean f = false;
+        try {
+            Connection con = CP.getCon();
+            String query = "UPDATE USERS SET IS_VERIFIED=TRUE WHERE USER_ID=?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, user_id);
+            pstmt.executeUpdate();
+
+            f = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return f;
+    }
+
 }

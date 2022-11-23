@@ -1,6 +1,8 @@
 
 package com.web_employeemanagementsystem.servlet;
 
+import com.web_employeemanagementsystem.dao.UserDao;
+import com.web_employeemanagementsystem.entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -26,9 +28,31 @@ public class VerificationServlet extends HttpServlet {
             String fifth = request.getParameter("fifth");
             String sixth = request.getParameter("sixth");
             
-            System.out.println(first+second+third+fourth+fifth+sixth);
+            String userSubmittedOTP = first+second+third+fourth+fifth+sixth;
+            System.out.println(userSubmittedOTP);
             
-            String originalOTP = request.getAttribute("otp").toString();
+            String originalOTP = request.getSession().getAttribute("otp").toString();
+            System.out.println(originalOTP);
+            
+            
+            if(userSubmittedOTP.equals(originalOTP))
+            {
+                User user = (User)request.getSession().getAttribute("user");
+                UserDao.makeVaifiedEmail(user.getUser_id());
+                user.setIs_verified(true);
+                request.getSession().setAttribute("user", user);
+                
+                
+                response.sendRedirect("home.jsp");
+                
+                
+            }
+            else
+            {
+                request.getSession().removeAttribute("msg");
+                request.getSession().setAttribute("msg", "Incorrect OTP!!_bg-danger");
+                response.sendRedirect("emailVerification.jsp");
+            }
             
             
         }

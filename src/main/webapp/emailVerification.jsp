@@ -103,6 +103,15 @@
         <%@include file="normal_nav.jsp" %>
         <!--Navbar ending-->
 
+        <%            if (session.getAttribute("msg") != null && session.getAttribute("msg").toString().contains("_")) {
+                String msg = session.getAttribute("msg").toString().split("_")[0];
+                String cssClass = session.getAttribute("msg").toString().split("_")[1];
+                session.removeAttribute("msg");
+        %>
+        <div class="mb-3 <%= cssClass%> text-center text-light">
+            <%= msg%>
+        </div>
+        <%}%>
 
         <div class="container height-100 d-flex justify-content-center align-items-center">
             <div class="position-relative">

@@ -32,15 +32,14 @@
                         <form method="post" action="loginServlet">
 
                             <%
-                                if (session.getAttribute("msg") != null && session.getAttribute("msg").toString().contains("_")) 
-                                {
+                                if (session.getAttribute("msg") != null && session.getAttribute("msg").toString().contains("_")) {
                                     String msg = session.getAttribute("msg").toString().split("_")[0];
                                     String cssClass = session.getAttribute("msg").toString().split("_")[1];
                                     session.removeAttribute("msg");
                             %>
-                                <div class="mb-3 <%= cssClass%> text-center text-light">
-                                    <%= msg%>
-                                </div>
+                            <div class="mb-3 <%= cssClass%> text-center text-light">
+                                <%= msg%>
+                            </div>
                             <%}%>
                             <div class="card-body">
                                 <div class="mb-3">
@@ -55,6 +54,7 @@
                             </div>
 
                             <div class="card-footer text-center ">
+                                <button type="button" class="btn bg-warning text-light" data-bs-toggle="modal" data-bs-target="#exampleModal">Forget Password</button>
                                 <button type="submit" class="btn bg-success text-light">Submit</button>
                             </div>
                         </form>
@@ -65,8 +65,48 @@
         </div>
 
 
+        <!--Forget Password Modal-->    
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Remember Your Password</h1>
+                    </div>
+                    <div class="modal-body">
+                        <div clas="card">
+                            <div class="card-body">
+                                <label for="user_email" class="form-label">Enter Your Verified Email Address</label>
+                                <input type="email" class="form-control" id="user_email" name="user_email" aria-describedby="emailHelp">
+                                <button type="button" class="btn btn-success mt-2" id="forget_pwd_button">Get A Password</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Forget Password Modal Ends-->
+
+
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+        <script>
+            $(document).ready(function () {
+                $("#forget_pwd_button").click(function () {
+//                    alert("The Button was clicked.");
+
+                        var email = $('#user_email').val();
+                        alert(email)
+                });
+            });
+        </script>
+
+
+
     </body>
 </html>
