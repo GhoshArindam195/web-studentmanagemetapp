@@ -14,6 +14,8 @@ com\web_employeemanagementsystem\servlet\logoutServlet.class
 com\web_employeemanagementsystem\servlet\UpdateEmployeeServlet.class
 com\web_employeemanagementsystem\email\EmailUtility.class
 com\web_employeemanagementsystem\email\GoogleTest$1.class
+com\web_employeemanagementsystem\servlet\ResetServlet.class
 com\web_employeemanagementsystem\dao\UserDao.class
 com\web_employeemanagementsystem\servlet\DemoterServlet.class
 com\web_employeemanagementsystem\helper\Helper.class
+.netbeans_automatic_build

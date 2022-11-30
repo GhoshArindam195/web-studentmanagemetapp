@@ -151,5 +151,51 @@ public class UserDao {
         }
         return f;
     }
+    
+    public static boolean updatePasswordbyEmail(String email, String pwd) {
+        boolean f = false;
+        try 
+        {
+            Connection con = CP.getCon();
+            String query = "UPDATE USERS SET USER_PWD = ? WHERE USER_EMAIL = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, pwd);
+            pstmt.setString(2, email);
+            
+            pstmt.executeUpdate();
+            
+            f = true;
+            
+        } catch (Exception e) 
+        {
+            e.printStackTrace();
+            return f;
+        }
+        return f;
+    }
+    
+    public static boolean isEmailExists(String email)
+    {
+        boolean f = false;
+        try 
+        {
+            Connection con = CP.getCon();
+            String query = "SELECT * FROM USERS WHERE USER_EMAIL = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, email);
+            ResultSet set = pstmt.executeQuery();
+            
+            if(set.next())
+            {
+                f = true;
+            }
+            
+            return f;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return f;
+        }
+    }
 
 }

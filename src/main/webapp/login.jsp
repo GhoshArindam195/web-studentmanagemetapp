@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     </head>
-    <body>
+    <body> 
         <!--Navbar-->
         <%@include file="normal_nav.jsp" %>
         <!--Navbar ending-->
@@ -92,6 +92,8 @@
 
 
 
+        <!--Sweet Alert JS-->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
@@ -100,8 +102,51 @@
                 $("#forget_pwd_button").click(function () {
 //                    alert("The Button was clicked.");
 
-                        var email = $('#user_email').val();
-                        alert(email)
+                    var email = $('#user_email').val();
+                    //alert(email)
+
+                    const d = {'email': email};
+
+                    $.ajax({
+                        url: "resetServlet",
+                        data: d,
+                        success: function (data, textStatus, jqXHR) {
+//                                                            alert(data)
+                            if (data.trim() === "not exist")
+                            {
+                                swal({
+                                    title: "Failed",
+                                    text: "Email doesn't Exist!! Plase provide correct email.",
+                                    icon: "error",
+                                    button: "Close",
+                                });
+                            } else if (data.trim() === "Failed")
+                            {
+                                swal({
+                                    title: "Failed",
+                                    text: "Something Went Wrong!! Plase try gain after sometime.",
+                                    icon: "error",
+                                    button: "Close",
+                                });
+                            } else if (data.trim() === "Success")
+                            {
+                                swal({
+                                    title: "Success",
+                                    text: "Hurray!! Password got reset",
+                                    icon: "success",
+                                    button: "Close",
+                                }).then(function () {
+                                    window.location = "login.jsp";
+                                });
+
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(data);
+                        }
+                    })
+
+
                 });
             });
         </script>
