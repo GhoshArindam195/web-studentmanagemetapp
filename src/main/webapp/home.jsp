@@ -12,9 +12,8 @@
     if (user == null) {
         response.sendRedirect("login.jsp");
     }
-    
-    if(!user.isIs_verified())
-    {
+
+    if (!user.isIs_verified()) {
         response.sendRedirect("emailVerification.jsp");
     }
 
@@ -39,8 +38,7 @@
     </head>
     <body onload="myFunction()">
 
-        <%
-            if (session.getAttribute("msg") != null) {
+        <%            if (session.getAttribute("msg") != null) {
                 String msg = session.getAttribute("msg").toString();
                 session.removeAttribute("msg");
 
@@ -160,7 +158,7 @@
                                     <tr>
                                         <th scope="row"><%= person.getUser_id()%></th>
                                         <td><%= person.getUser_name()%></td>
-                                        <td id="currentPost<%= person.getUser_id() %>"><%= person.getUser_type()%></td>
+                                        <td id="currentPost<%= person.getUser_id()%>"><%= person.getUser_type()%></td>
                                         <td>
                                             <%
                                                 if (person.getUser_type().equals("Employee")) {
@@ -187,6 +185,39 @@
             </div>
             <!--Access Modal End-->
         </div>
+
+        <!--Change Pwd Modal--> 
+        <!-- Modal -->
+        <div class="modal fade" id="change_pwd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">Enter New Password</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div clas="card">
+                            <div class="card-body">
+                                <label for="new_pwd" class="form-label">Enter Your New Password</label>
+                                <input type="password" class="form-control" id="new_pwd" name="new_pwd" aria-describedby="emailHelp" required>
+
+                                <label for="repeat_pwd" class="form-label">Repeat Your New Password</label>
+                                <input type="password" class="form-control" id="repeat_pwd" name="repeat_pwd" aria-describedby="emailHelp" required>
+                                <center>
+                                    <button type="button" class="btn btn-success mt-2" id="change_pwd_button">Change Password</button>
+                                </center>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Change Pwd Modal End-->                       
+
 
         <!--Sweet Alert JS-->
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
@@ -218,7 +249,7 @@
                                                                 });
 
 
-                                                                
+
                                                                 $('#demote' + userid).removeAttr('hidden');
                                                                 $('#promote' + userid).attr('hidden', 'true');
                                                                 $('#currentPost' + userid).text("Manager")
@@ -240,9 +271,9 @@
 
 
                                                 }
-                                                
-                                                
-                                                
+
+
+
                                                 //Demote..
                                                 function demote(userid) {
                                                     const d = {"user_id": userid};
@@ -262,7 +293,7 @@
                                                                 });
 
 
-                                                                
+
                                                                 $('#promote' + userid).removeAttr('hidden');
                                                                 $('#demote' + userid).attr('hidden', 'true');
                                                                 $('#currentPost' + userid).text("Employee")
@@ -284,7 +315,76 @@
 
 
                                                 }
-                                                
+
+        </script>
+        <script>
+            $(document).ready(function () {
+                $("#change_pwd_button").click(function () {
+//                    alert("The Button was clicked.");
+
+                    var new_pwd = $('#new_pwd').val();
+                    var repeat_pwd = $('#repeat_pwd').val();
+                    if(!(new_pwd === repeat_pwd))
+                    {
+                        swal({
+                                    title: "Password Did Not Matched",
+                                    text: "Please enter passwords correctly",
+                                    icon: "error",
+                                    button: "Close",
+                                });
+                    }
+                    else
+                    {
+                        alert(new_pwd+" "+repeat_pwd)
+                    }
+                    
+                    
+
+                    /*
+                    const d = {'email': email};
+
+                    $.ajax({
+                        url: "resetServlet",
+                        data: d,
+                        success: function (data, textStatus, jqXHR) {
+//                                                            alert(data)
+                            if (data.trim() === "not exist")
+                            {
+                                swal({
+                                    title: "Failed",
+                                    text: "Email doesn't Exist!! Plase provide correct email.",
+                                    icon: "error",
+                                    button: "Close",
+                                });
+                            } else if (data.trim() === "Failed")
+                            {
+                                swal({
+                                    title: "Failed",
+                                    text: "Something Went Wrong!! Plase try gain after sometime.",
+                                    icon: "error",
+                                    button: "Close",
+                                });
+                            } else if (data.trim() === "Success")
+                            {
+                                swal({
+                                    title: "Success",
+                                    text: "Hurray!! Password got reset",
+                                    icon: "success",
+                                    button: "Close",
+                                }).then(function () {
+                                    window.location = "login.jsp";
+                                });
+
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(data);
+                        }
+                    })
+                     */   
+
+                });
+            });
         </script>
     </body>
 </html>
