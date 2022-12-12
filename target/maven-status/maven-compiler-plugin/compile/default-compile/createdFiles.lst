@@ -10,6 +10,7 @@ com\web_employeemanagementsystem\entities\User.class
 com\web_employeemanagementsystem\helper\ValidateForm.class
 com\web_employeemanagementsystem\helper\CP.class
 com\web_employeemanagementsystem\servlet\VerificationServlet.class
+com\web_employeemanagementsystem\servlet\ChangePasswordServlet.class
 com\web_employeemanagementsystem\servlet\logoutServlet.class
 com\web_employeemanagementsystem\servlet\UpdateEmployeeServlet.class
 com\web_employeemanagementsystem\email\EmailUtility.class
@@ -18,4 +19,3 @@ com\web_employeemanagementsystem\servlet\ResetServlet.class
 com\web_employeemanagementsystem\dao\UserDao.class
 com\web_employeemanagementsystem\servlet\DemoterServlet.class
 com\web_employeemanagementsystem\helper\Helper.class
-.netbeans_automatic_build

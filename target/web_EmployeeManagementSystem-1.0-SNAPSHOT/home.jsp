@@ -44,9 +44,9 @@
 
                 String title = "Welcome";
                 String icon = "success";
-                if (msg.contains("Don't have permission")) {
+                if (msg.contains("Don't have")) {
                     title = "Please Contact Admin";
-                    msg = "You Don't have permission to Add new Employee.";
+                    msg = "You Don't have permission";
                     icon = "error";
                 }
         %>
@@ -75,7 +75,7 @@
         %>
         <%@include file="admin_nav.jsp" %>
         <%
-        } else if (user != null && user.getUser_type().equals("Employee")) {
+        } else if (user != null && !user.getUser_type().equals("Admin")) {
         %>
         <%@include file="emp_nav.jsp" %>
         <%
@@ -317,6 +317,8 @@
                                                 }
 
         </script>
+        
+        <!--JS for change password-->
         <script>
             $(document).ready(function () {
                 $("#change_pwd_button").click(function () {
@@ -324,64 +326,71 @@
 
                     var new_pwd = $('#new_pwd').val();
                     var repeat_pwd = $('#repeat_pwd').val();
-                    if(!(new_pwd === repeat_pwd))
+                    if (!(new_pwd === repeat_pwd))
                     {
                         swal({
-                                    title: "Password Did Not Matched",
-                                    text: "Please enter passwords correctly",
-                                    icon: "error",
-                                    button: "Close",
-                                });
-                    }
-                    else
+                            title: "Password Did Not Matched",
+                            text: "Please enter passwords correctly",
+                            icon: "error",
+                            button: "Close",
+                        });
+                    } else
                     {
-                        alert(new_pwd+" "+repeat_pwd)
+                        const d = {'newpwd': new_pwd, 'repeatPwd': repeat_pwd};
+
+                        $.ajax({
+                            url: "changePasswordServlet",
+                            data: d,
+                            success: function (data, textStatus, jqXHR) {
+//                                                            alert(data)
+                                if (data.trim() === "invalid password")
+                                {
+                                    swal({
+                                        title: "Failed",
+                                        text: "Oh No!! Passwords entered are invalid",
+                                        icon: "error",
+                                        button: "Close",
+                                    });
+                                } else if (data.trim() === "failed")
+                                {
+                                    swal({
+                                        title: "Failed",
+                                        text: "Something Went Wrong!! Plase try again after sometime.",
+                                        icon: "error",
+                                        button: "Close",
+                                    });
+                                } else if (data.trim() === "success")
+                                {
+                                    swal({
+                                        title: "Success",
+                                        text: "Hurray!! Password got changed",
+                                        icon: "success",
+                                        button: "Close",
+                                    });
+
+                                } else if (data.trim() === "passwords did not match")
+                                {
+                                    swal({
+                                        title: "Password Did Not Matched",
+                                        text: "Please enter passwords correctly",
+                                        icon: "error",
+                                        button: "Close",
+                                    });
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.log(data);
+                            }
+                        })
+
+
                     }
-                    
-                    
+
+
 
                     /*
-                    const d = {'email': email};
-
-                    $.ajax({
-                        url: "resetServlet",
-                        data: d,
-                        success: function (data, textStatus, jqXHR) {
-//                                                            alert(data)
-                            if (data.trim() === "not exist")
-                            {
-                                swal({
-                                    title: "Failed",
-                                    text: "Email doesn't Exist!! Plase provide correct email.",
-                                    icon: "error",
-                                    button: "Close",
-                                });
-                            } else if (data.trim() === "Failed")
-                            {
-                                swal({
-                                    title: "Failed",
-                                    text: "Something Went Wrong!! Plase try gain after sometime.",
-                                    icon: "error",
-                                    button: "Close",
-                                });
-                            } else if (data.trim() === "Success")
-                            {
-                                swal({
-                                    title: "Success",
-                                    text: "Hurray!! Password got reset",
-                                    icon: "success",
-                                    button: "Close",
-                                }).then(function () {
-                                    window.location = "login.jsp";
-                                });
-
-                            }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            console.log(data);
-                        }
-                    })
-                     */   
+                     
+                     */
 
                 });
             });

@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "verificationServlet", urlPatterns = {"/verificationServlet"})
 public class VerificationServlet extends HttpServlet {
@@ -34,15 +35,15 @@ public class VerificationServlet extends HttpServlet {
             String originalOTP = request.getSession().getAttribute("otp").toString();
             System.out.println(originalOTP);
             
-            
+            HttpSession httpSession = request.getSession();
             if(userSubmittedOTP.equals(originalOTP))
             {
                 User user = (User)request.getSession().getAttribute("user");
                 UserDao.makeVaifiedEmail(user.getUser_id());
                 user.setIs_verified(true);
-                request.getSession().setAttribute("user", user);
+                httpSession.setAttribute("user", user);
                 
-                
+                httpSession.setAttribute("msg", "Login Successful!");
                 response.sendRedirect("home.jsp");
                 
                 

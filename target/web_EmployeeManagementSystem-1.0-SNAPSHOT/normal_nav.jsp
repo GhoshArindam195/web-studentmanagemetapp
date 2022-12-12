@@ -9,9 +9,6 @@
                 <li class="nav-item">
                     <a class="nav-link mr-2" href="login.jsp"><span class="fa fa-key"></span>Login</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="register.jsp"><span class="fa fa-pencil"></span>Register</a>
-                </li>
             </ul>
 
         </div>

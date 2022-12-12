@@ -16,6 +16,8 @@
                     <ul class="dropdown-menu p-0 m-0">
                         <li>
                             <a class="nav-link mr-2 bg-light text-danger" href="logoutServlet"><span class="fa fa-sign-out"></span><b>Logout</b></a>
+                            <a class="nav-link mr-2 bg-dark text-warning" data-bs-toggle="modal" data-bs-target="#change_pwd" href="#"><span class="fa fa-sign-out"></span><b>Change Password</b></a>
+                            <a class="nav-link text-primary" style="background-color: #e3f2fd;" href="register.jsp"><span class="fa fa-pencil"></span>Register</a>
                         </li>
                     </ul>
                 </li>

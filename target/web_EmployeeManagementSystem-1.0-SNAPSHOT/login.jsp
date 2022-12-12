@@ -30,15 +30,23 @@
                         </div>
 
                         <form method="post" action="loginServlet">
-
                             <%
+                                if(session.getAttribute("msg")!=null)
+                                {
+                                    String str = session.getAttribute("msg").toString();
+                                }
+                                
+                                
                                 if (session.getAttribute("msg") != null && session.getAttribute("msg").toString().contains("_")) {
                                     String msg = session.getAttribute("msg").toString().split("_")[0];
                                     String cssClass = session.getAttribute("msg").toString().split("_")[1];
                                     session.removeAttribute("msg");
                             %>
-                            <div class="mb-3 <%= cssClass%> text-center text-light">
-                                <%= msg%>
+
+                            <div class="alert alert-success text-center" role="alert">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                </svg>&nbsp;&nbsp;<b><%= msg%></b>
                             </div>
                             <%}%>
                             <div class="card-body">

@@ -1,4 +1,5 @@
 
+<%@page import="com.web_employeemanagementsystem.entities.User"%>
 <%@page import="java.util.List"%>
 <%@page import="com.web_employeemanagementsystem.entities.Employee"%>
 <%@page import="com.web_employeemanagementsystem.dao.EmployeeDao"%>
@@ -19,6 +20,15 @@
 
     </head>
     <body>
+        
+        <%
+            User user = (User)session.getAttribute("user");
+            if(user!=null)
+            {
+                response.sendRedirect("home.jsp");
+            }
+        %>
+        
 
         <%
             List<Employee> emps = EmployeeDao.getEmployees();

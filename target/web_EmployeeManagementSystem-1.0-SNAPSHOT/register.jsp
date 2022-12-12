@@ -1,4 +1,23 @@
+<%@page import="com.web_employeemanagementsystem.entities.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+
+    User user = (User) session.getAttribute("user");
+
+    if (user == null) {
+        session.setAttribute("msg", "Please Login First!!_bg-danger");
+        response.sendRedirect("login.jsp");
+    } else 
+    {
+        if (!(user.getUser_type().equals("Admin") || user.getUser_type().equals("Manager"))) {
+            session.setAttribute("msg", "You don't have Access to Register");
+            response.sendRedirect("home.jsp");
+        }
+    }
+
+
+
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,7 +35,12 @@
     </head>
     <body>
         <!--Navbar-->
-        <%@include file="normal_nav.jsp" %>
+        <%if (user != null && user.getUser_type().equals("Admin")) {%>
+        <%@include file="admin_nav.jsp" %>
+        <%} else if (user != null && user.getUser_type().equals("Manager")) {%>
+        <%@include file="emp_nav.jsp" %>
+        <%}
+        %>
         <!--Navbar ending-->
         <section class="" style="background-color: #eee;">
             <%
@@ -27,7 +51,7 @@
                         session.removeAttribute("msg");
             %>
             <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-                <strong><%= msg %></strong> Please Try Again!!
+                <strong><%= msg%></strong> Please Try Again!!
             </div>
             <%}
                 } catch (Exception e) {
@@ -113,6 +137,128 @@
                     </div>
                 </div>
             </div>
+
+            <!--Change Pwd Modal--> 
+            <!-- Modal -->
+            <div class="modal fade" id="change_pwd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">Enter New Password</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div clas="card">
+                                <div class="card-body">
+                                    <label for="new_pwd" class="form-label">Enter Your New Password</label>
+                                    <input type="password" class="form-control" id="new_pwd" name="new_pwd" aria-describedby="emailHelp" required>
+
+                                    <label for="repeat_pwd" class="form-label">Repeat Your New Password</label>
+                                    <input type="password" class="form-control" id="repeat_pwd" name="repeat_pwd" aria-describedby="emailHelp" required>
+                                    <center>
+                                        <button type="button" class="btn btn-success mt-2" id="change_pwd_button">Change Password</button>
+                                    </center>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Change Pwd Modal End--> 
+
         </section>
+
+
+        <!--Sweet Alert JS-->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+
+        <!--JS for change password-->
+        <script>
+            $(document).ready(function () {
+                $("#change_pwd_button").click(function () {
+//                    alert("The Button was clicked.");
+
+                    var new_pwd = $('#new_pwd').val();
+                    var repeat_pwd = $('#repeat_pwd').val();
+                    if (!(new_pwd === repeat_pwd))
+                    {
+                        swal({
+                            title: "Password Did Not Matched",
+                            text: "Please enter passwords correctly",
+                            icon: "error",
+                            button: "Close",
+                        });
+                    } else
+                    {
+                        const d = {'newpwd': new_pwd, 'repeatPwd': repeat_pwd};
+
+                        $.ajax({
+                            url: "changePasswordServlet",
+                            data: d,
+                            success: function (data, textStatus, jqXHR) {
+//                                                            alert(data)
+                                if (data.trim() === "invalid password")
+                                {
+                                    swal({
+                                        title: "Failed",
+                                        text: "Oh No!! Passwords entered are invalid",
+                                        icon: "error",
+                                        button: "Close",
+                                    });
+                                } else if (data.trim() === "failed")
+                                {
+                                    swal({
+                                        title: "Failed",
+                                        text: "Something Went Wrong!! Plase try again after sometime.",
+                                        icon: "error",
+                                        button: "Close",
+                                    });
+                                } else if (data.trim() === "success")
+                                {
+                                    swal({
+                                        title: "Success",
+                                        text: "Hurray!! Password got changed",
+                                        icon: "success",
+                                        button: "Close",
+                                    });
+
+                                } else if (data.trim() === "passwords did not match")
+                                {
+                                    swal({
+                                        title: "Password Did Not Matched",
+                                        text: "Please enter passwords correctly",
+                                        icon: "error",
+                                        button: "Close",
+                                    });
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.log(data);
+                            }
+                        })
+
+
+                    }
+
+
+
+                    /*
+                     
+                     */
+
+                });
+            });
+        </script> 
+
+
+
+
     </body>
 </html>

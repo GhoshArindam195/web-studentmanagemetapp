@@ -81,6 +81,7 @@ public class RegisterServlet extends HttpServlet {
                 try
                 {
                     new GoogleTest().sendSSLMessage(new String[]{recipient}, subject, content);
+                    resultMessage = "Hurray!! Successfully Registered";
                 } 
                 catch (Exception ex)
                 {
