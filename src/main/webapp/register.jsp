@@ -5,13 +5,18 @@
     User user = (User) session.getAttribute("user");
 
     if (user == null) {
-        session.setAttribute("msg", "Please Login First!!_bg-danger");
-        response.sendRedirect("login.jsp");
-    } else 
-    {
+        session.setAttribute("nextPage", "login.jsp");
+        session.setAttribute("message", "Please Login First!!_bg-danger");
+        response.sendRedirect(request.getContextPath() + "/conductorServlet");
+
+    } else {
         if (!(user.getUser_type().equals("Admin") || user.getUser_type().equals("Manager"))) {
-            session.setAttribute("msg", "You don't have Access to Register");
-            response.sendRedirect("home.jsp");
+//            session.setAttribute("msg", "You don't have Access to Register");
+//            response.sendRedirect("home.jsp");
+
+            session.setAttribute("nextPage", "home.jsp");
+            session.setAttribute("message", "You don't have Access to Register");
+            response.sendRedirect(request.getContextPath() + "/conductorServlet");
         }
     }
 

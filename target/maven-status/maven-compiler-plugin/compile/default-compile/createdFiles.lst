@@ -6,6 +6,7 @@ com\web_employeemanagementsystem\email\GoogleTest.class
 com\web_employeemanagementsystem\entities\Employee.class
 com\web_employeemanagementsystem\servlet\PromoterServlet.class
 com\web_employeemanagementsystem\servlet\AddEmployeeServlet.class
+com\web_employeemanagementsystem\servlet\ConductorServlet.class
 com\web_employeemanagementsystem\entities\User.class
 com\web_employeemanagementsystem\helper\ValidateForm.class
 com\web_employeemanagementsystem\helper\CP.class

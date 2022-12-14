@@ -31,12 +31,9 @@
 
                         <form method="post" action="loginServlet">
                             <%
-                                if(session.getAttribute("msg")!=null)
-                                {
+                                if (session.getAttribute("msg") != null) {
                                     String str = session.getAttribute("msg").toString();
-                                }
-                                
-                                
+                                } 
                                 if (session.getAttribute("msg") != null && session.getAttribute("msg").toString().contains("_")) {
                                     String msg = session.getAttribute("msg").toString().split("_")[0];
                                     String cssClass = session.getAttribute("msg").toString().split("_")[1];

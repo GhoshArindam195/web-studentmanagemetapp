@@ -44,7 +44,7 @@
 
                 String title = "Welcome";
                 String icon = "success";
-                if (msg.contains("Don't have")) {
+                if (msg.toLowerCase().contains("don't have")) {
                     title = "Please Contact Admin";
                     msg = "You Don't have permission";
                     icon = "error";
