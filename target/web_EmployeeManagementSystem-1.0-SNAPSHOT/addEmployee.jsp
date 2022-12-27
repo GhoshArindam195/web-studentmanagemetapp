@@ -8,7 +8,7 @@
         response.sendRedirect("login.jsp");
     }
     
-    else if(!user.getUser_type().equals("Admin"))
+    else if(!(user.getUser_type().equals("Admin") || user.getUser_type().equals("Manager")))
     {
         session.setAttribute("msg", "You Don't have permission to Add new Employee. Please Contact Admin");
         response.sendRedirect("home.jsp");
